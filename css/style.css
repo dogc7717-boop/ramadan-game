@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1e1e2f, #2b1055);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+button {
+  padding: 12px 20px;
+  margin: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#joinBtn {
+  background: #16a085;
+  color: white;
+}
+
+#moveBtn {
+  background: #f39c12;
+  color: black;
+}
+
+#status {
+  margin: 15px;
+  font-weight: bold;
+}
+
+pre {
+  text-align: left;
+  background: #00000055;
+  padding: 10px;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow: auto;
+}

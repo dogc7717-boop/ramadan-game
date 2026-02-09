@@ -4,35 +4,44 @@ const SUPABASE_KEY = "sb_publishable__-zX3zqL_4xaQhYY4g8_Rw_1hXcWrSM";
 const supabase = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY, 
-const statusEl = document.getElementById("status");
-const logEl = document.getElementById("log");
+const status = document.getElementById("status");
+const log = document.getElementById("log");
 const joinBtn = document.getElementById("joinBtn");
 const moveBtn = document.getElementById("moveBtn");
 
-statusEl.innerText = "متصل بـ Supabase...";
+let channel = null;
 
-const channel = supabase
-  .channel("ramadan-room")
-  .on(
-    "postgres_changes",
-    { event: "*", schema: "public", table: "games" },
-    (payload) => {
-      logEl.textContent += "\n" + JSON.stringify(payload.new);
-    }
-  )
-  .subscribe((s) => {
-    if (s === "SUBSCRIBED") {
-      statusEl.innerText = "Realtime شغال ✅";
-    }
-  });
+function write(msg) {
+  log.textContent += msg + "\n";
+}
 
-joinBtn.onclick = async () => {
-  await supabase.from("games").insert({ state: "joined" });
+status.textContent = "جاهز للاتصال";
+
+joinBtn.onclick = () => {
+  channel = supabase
+    .channel("test-room")
+    .on("broadcast", { event: "ping" }, ({ payload }) => {
+      write("📩 وصل: " + payload.msg);
+    })
+    .subscribe((s) => {
+      write("Realtime: " + s);
+      if (s === "SUBSCRIBED") {
+        status.textContent = "متصل ✅";
+        moveBtn.disabled = false;
+      }
+    });
+
+  joinBtn.disabled = true;
 };
 
 moveBtn.onclick = async () => {
-  await supabase
-    .from("games")
-    .update({ state: "moved" })
+  await channel.send({
+    type: "broadcast",
+    event: "ping",
+    payload: { msg: "سلام من لاعب 👋" }
+  });
+
+  write("📤 بعت رسالة");
+};
     .eq("id", 1);
 };

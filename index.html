@@ -6,60 +6,26 @@
     <title>Block SAm</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-    <style>
-        /* إضافات سريعة لضمان ظهور العناصر بشكل صحيح قبل ربط الـ CSS */
-        #game-container {
-            user-select: none;
-            -webkit-user-select: none;
-            touch-action: none;
-        }
-    </style>
 </head>
 <body>
-
     <div id="game-container">
         <div id="ui-layer">
-            <div class="stat-box">
-                <span class="label">SCORE</span>
-                <span id="scoreText" class="value">0</span>
-            </div>
-
-            <div id="fever-container">
-                <div id="fever-bar"></div>
-            </div>
-
-            <div class="stat-box">
-                <span class="label">HIGH</span>
-                <span id="highText" class="value">0</span>
-            </div>
+            <div class="stat-box"><span class="label">SCORE</span><span id="scoreText" class="value">0</span></div>
+            <div id="fever-container"><div id="fever-bar"></div></div>
+            <div class="stat-box"><span class="label">HIGH</span><span id="highText" class="value">0</span></div>
         </div>
-
         <canvas id="game" width="320" height="320"></canvas>
-
         <div id="piece-dock">
-            <canvas id="p1" class="dock-cell" width="100" height="100"></canvas>
-            <canvas id="p2" class="dock-cell" width="100" height="100"></canvas>
-            <canvas id="p3" class="dock-cell" width="100" height="100"></canvas>
+            <canvas id="p1" class="dock-cell" width="80" height="80"></canvas>
+            <canvas id="p2" class="dock-cell" width="80" height="80"></canvas>
+            <canvas id="p3" class="dock-cell" width="80" height="80"></canvas>
         </div>
-
         <div id="overlay">
-            <h1 id="main-title">BLOCK <span style="color:#3b82f6">SAm</span></h1>
-            <p id="sub-title" style="margin-bottom: 20px; opacity: 0.8;">جاهز للتحدي؟</p>
+            <h1>BLOCK <span style="color:#3b82f6">SAm</span></h1>
+            <p style="margin-bottom: 20px; opacity: 0.8;">انقر للتدوير، اسحب للعب</p>
             <button class="btn" onclick="startGame()">إبدأ اللعب</button>
         </div>
     </div>
-
     <script src="game.js"></script>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./service-worker.js')
-                    .then(reg => console.log('Service Worker Registered!'))
-                    .catch(err => console.log('Service Worker Failed!', err));
-            });
-        }
-    </script>
-
 </body>
-              </html>
+    </html>
